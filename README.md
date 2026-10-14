@@ -82,3 +82,29 @@ python -m astro_rag.search "o que é a plataforma orbitalia?"
 $env:PYTHONPATH="src"
 pytest tests
 ```
+
+
+
+
+O QUE FALTA
+9. Conecte o modelo e apresente a resposta
+Só então adicionaremos a geração.
+O backend receberá a pergunta, recuperará os trechos e montará a entrada do modelo com:
+- A pergunta.
+- O contexto recuperado.
+- As orientações de resposta.
+- Os identificadores das fontes disponíveis.
+A interface mostrará a resposta e permitirá consultar suas evidências.
+Citação exibida não é prova automática de fidelidade. Precisaremos verificar se o trecho citado realmente sustenta a afirmação.
+Também testaremos perguntas cuja resposta não existe no acervo. Um bom sistema precisa reconhecer essa situação; uma instrução no prompt, sozinha, não garante isso.
+10. Complete a engenharia e a avaliação
+Quando o percurso inteiro funcionar com um PDF, ampliaremos o acervo e acrescentaremos:
+Recurso	Por que importa
+Atualização incremental	Processar apenas conteúdo novo ou alterado
+Controle de versões ativas	Evitar respostas apoiadas em trechos substituídos
+Orquestração	Executar etapas na ordem correta e acompanhar falhas
+Logs	Entender o que aconteceu em cada execução
+Avaliação de recuperação	Verificar se a busca encontra as evidências necessárias
+Avaliação de respostas	Verificar fidelidade, citações e reconhecimento de limites
+API e interface	Tornar o sistema utilizável
+Documentação e ambiente reproduzível	Permitir que outra pessoa execute o projeto
