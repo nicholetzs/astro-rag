@@ -1,0 +1,46 @@
+# Python & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+
+# IDEs & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs & Cache
+*.log
+.mypy_cache/
+.ruff_cache/
+
+# Data Files (preserve folder structure with .gitkeep, ignore data dumps)
+data/incoming/*
+!data/incoming/.gitkeep
+data/bronze/*
+!data/bronze/.gitkeep
+data/silver/*
+!data/silver/.gitkeep
+data/gold/*
+!data/gold/.gitkeep
+data/quarantine/*
+!data/quarantine/.gitkeep
+data/qdrant_db/
