@@ -25,6 +25,13 @@ class TextChunk:
     char_count: int
 
 
+DEFAULT_METADATA_HEADER = (
+    "[Documento: ORBITALIA - TCC Ciência da Computação (FAESA, 2026) | "
+    "Autores/Desenvolvedores: Felipe Pereira Umpierre e Nichole da Silva Nicolini | "
+    "Orientador: Prof. Howard Cruz Roatti]"
+)
+
+
 class ChunkingPipeline:
     """Chunks silver pages into manageable units with metadata preservation."""
 
@@ -34,13 +41,15 @@ class ChunkingPipeline:
         gold_dir: Path = Path("data/gold"),
         chunk_size: int = 600,
         chunk_overlap: int = 100,
-        strategy_version: str = "paragraph_sliding_v1",
+        strategy_version: str = "contextual_metadata_v1",
+        metadata_header: Optional[str] = DEFAULT_METADATA_HEADER,
     ):
         self.silver_path = Path(silver_path)
         self.gold_dir = Path(gold_dir)
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
         self.strategy_version = strategy_version
+        self.metadata_header = metadata_header
 
         self.gold_dir.mkdir(parents=True, exist_ok=True)
 
@@ -115,16 +124,17 @@ class ChunkingPipeline:
             page_chunks = self._split_page_text(page_text)
             for ch_text in page_chunks:
                 chunk_id = f"{doc_id}_c{chunk_idx:04d}"
+                final_text = f"{self.metadata_header}\n{ch_text}" if self.metadata_header else ch_text
                 all_chunks.append(
                     TextChunk(
                         chunk_id=chunk_id,
-                        text=ch_text,
+                        text=final_text,
                         document_id=doc_id,
                         document_version=doc_ver,
                         page_start=page_num,
                         page_end=page_num,
                         chunking_strategy_version=self.strategy_version,
-                        char_count=len(ch_text),
+                        char_count=len(final_text),
                     )
                 )
                 chunk_idx += 1
